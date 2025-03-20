@@ -878,7 +878,7 @@ public class GUI extends javax.swing.JFrame {
 
     private void BtnGuiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuiaActionPerformed
 
-        String link = "https://github.com/AngelSH10004/ProyectoIntegrador";
+        String link = "https://github.com/AngelSH10004/ProyectoIntegrador1";
 
         try {
             // Usar Desktop.getDesktop() para abrir el enlace en el navegador por defecto
