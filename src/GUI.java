@@ -417,6 +417,7 @@ public class GUI extends javax.swing.JFrame {
         BotonEmoji = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         BotonCargarIma1 = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         GaleriaInsertar = new javax.swing.JPanel();
         TxtEmoji = new javax.swing.JTextField();
@@ -611,6 +612,10 @@ public class GUI extends javax.swing.JFrame {
             }
         });
         jPanel2.add(BotonCargarIma1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 200, 50));
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        jLabel8.setText("Menu de Emojis: Click Izquierdo ");
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 220, 160, -1));
 
         PanelBase.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 0, 940, 240));
 
@@ -994,6 +999,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
