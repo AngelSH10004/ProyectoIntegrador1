@@ -7,6 +7,7 @@
 //__________________________________________________
 import Clases.*;
 import Clases.Nodo;
+//Si quieres implementar el diseño, importa la libreria de abajo
 //import com.formdev.flatlaf.intellijthemes.FlatCyanLightIJTheme;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -936,16 +937,20 @@ public class GUI extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
 
+////////////////////////////////////////////////////////////////////
+        //Este try es para implementar los temas para java del proyecto 
 //        try {
 ////            UIManager.setLookAndFeel(new FlatLightLaf());
 //            FlatCyanLightIJTheme.setup();
 //        } catch (Exception ex) {
 //            System.err.println("Failed to initialize LaF");
 //        }
+////////////////////////////////////////////////////////////////////
+//        Aqui puedes modificar los diseños de los botones, textfield, etc...
 //        UIManager.put("Button.arc", 999);
 //        UIManager.put("Component.arc", 999);
 //        UIManager.put("TextComponent.arc", 5);
-
+////////////////////////////////////////////////////////////////////
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
