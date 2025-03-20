@@ -7,7 +7,7 @@
 //__________________________________________________
 import Clases.*;
 import Clases.Nodo;
-import com.formdev.flatlaf.intellijthemes.FlatCyanLightIJTheme;
+//import com.formdev.flatlaf.intellijthemes.FlatCyanLightIJTheme;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.HeadlessException;
@@ -21,7 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
- 
+
 public class GUI extends javax.swing.JFrame {
 
     /**
@@ -397,26 +397,20 @@ public class GUI extends javax.swing.JFrame {
 
         MenuEmojis = new javax.swing.JPopupMenu();
         PanelBase = new javax.swing.JPanel();
-        kGradientPanel1 = new keeptoo.KGradientPanel();
-        jSeparator1 = new javax.swing.JSeparator();
-        BotonAlbum = new javax.swing.JButton();
-        BotonGaleria = new javax.swing.JButton();
-        BotonConfi = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
         BotonLimpiarBuffer = new javax.swing.JButton();
         LNombrePNG = new javax.swing.JLabel();
         LDescPNG = new javax.swing.JLabel();
         TxtNombreImagen = new javax.swing.JTextField();
         LFecha = new javax.swing.JLabel();
         SpinnerFecha = new javax.swing.JSpinner();
-        BotonBorrarImage1 = new javax.swing.JButton();
-        BotonImportarImage1 = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
         TxtDescripcionImagen = new javax.swing.JTextField();
         LFecha1 = new javax.swing.JLabel();
-        BotonEmoji = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         BotonCargarIma1 = new javax.swing.JButton();
+        BotonBorrarImage1 = new javax.swing.JButton();
+        BotonImportarImage1 = new javax.swing.JButton();
+        BotonEmoji = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         GaleriaInsertar = new javax.swing.JPanel();
@@ -445,6 +439,13 @@ public class GUI extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         BtnGuia = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        BotonAlbum = new javax.swing.JButton();
+        BotonGaleria = new javax.swing.JButton();
+        BotonConfi = new javax.swing.JButton();
+        jSeparator3 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("GaleriaRobocop");
@@ -458,60 +459,6 @@ public class GUI extends javax.swing.JFrame {
         PanelBase.setMaximumSize(new java.awt.Dimension(1000, 1000));
         PanelBase.setMinimumSize(new java.awt.Dimension(1280, 720));
         PanelBase.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        kGradientPanel1.setkEndColor(new java.awt.Color(75, 19, 79));
-        kGradientPanel1.setkStartColor(new java.awt.Color(201, 75, 75));
-        kGradientPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        kGradientPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 96, 218, 20));
-
-        BotonAlbum.setBackground(new java.awt.Color(102, 102, 102));
-        BotonAlbum.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        BotonAlbum.setForeground(new java.awt.Color(255, 255, 255));
-        BotonAlbum.setText("Album");
-        BotonAlbum.setContentAreaFilled(false);
-        BotonAlbum.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        BotonAlbum.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotonAlbumActionPerformed(evt);
-            }
-        });
-        kGradientPanel1.add(BotonAlbum, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 230, 70));
-
-        BotonGaleria.setBackground(new java.awt.Color(102, 102, 102));
-        BotonGaleria.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        BotonGaleria.setForeground(new java.awt.Color(255, 255, 255));
-        BotonGaleria.setText("Datos-Galeria");
-        BotonGaleria.setBorderPainted(false);
-        BotonGaleria.setContentAreaFilled(false);
-        BotonGaleria.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        BotonGaleria.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotonGaleriaActionPerformed(evt);
-            }
-        });
-        kGradientPanel1.add(BotonGaleria, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 230, 70));
-
-        BotonConfi.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        BotonConfi.setForeground(new java.awt.Color(255, 255, 255));
-        BotonConfi.setText("Creditos");
-        BotonConfi.setBorderPainted(false);
-        BotonConfi.setContentAreaFilled(false);
-        BotonConfi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        BotonConfi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotonConfiActionPerformed(evt);
-            }
-        });
-        kGradientPanel1.add(BotonConfi, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 640, 230, 80));
-
-        jLabel7.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/IconoS.png"))); // NOI18N
-        jLabel7.setText("Fotos");
-        kGradientPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 160, 50));
-
-        PanelBase.add(kGradientPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 230, 720));
 
         BotonLimpiarBuffer.setBackground(new java.awt.Color(255, 51, 51));
         BotonLimpiarBuffer.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -547,32 +494,6 @@ public class GUI extends javax.swing.JFrame {
         SpinnerFecha.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         PanelBase.add(SpinnerFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 40, 210, 30));
 
-        BotonBorrarImage1.setBackground(new java.awt.Color(248, 155, 155));
-        BotonBorrarImage1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        BotonBorrarImage1.setForeground(new java.awt.Color(255, 255, 255));
-        BotonBorrarImage1.setText("Borrar Imagen");
-        BotonBorrarImage1.setBorderPainted(false);
-        BotonBorrarImage1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        BotonBorrarImage1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotonBorrarImage1ActionPerformed(evt);
-            }
-        });
-        PanelBase.add(BotonBorrarImage1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 170, 220, 50));
-
-        BotonImportarImage1.setBackground(new java.awt.Color(166, 220, 149));
-        BotonImportarImage1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        BotonImportarImage1.setForeground(new java.awt.Color(255, 255, 255));
-        BotonImportarImage1.setText("Insertar Imagen");
-        BotonImportarImage1.setBorderPainted(false);
-        BotonImportarImage1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        BotonImportarImage1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotonImportarImage1ActionPerformed(evt);
-            }
-        });
-        PanelBase.add(BotonImportarImage1, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 170, 220, 50));
-
         jSeparator2.setAlignmentX(1.0F);
         jSeparator2.setAlignmentY(1.0F);
         PanelBase.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 240, 900, 20));
@@ -583,19 +504,6 @@ public class GUI extends javax.swing.JFrame {
         LFecha1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         LFecha1.setText("Colocar Fecha");
         PanelBase.add(LFecha1, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 10, 120, -1));
-
-        BotonEmoji.setBackground(new java.awt.Color(224, 224, 120));
-        BotonEmoji.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        BotonEmoji.setForeground(new java.awt.Color(255, 255, 255));
-        BotonEmoji.setText("Emojis");
-        BotonEmoji.setBorderPainted(false);
-        BotonEmoji.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        BotonEmoji.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotonEmojiActionPerformed(evt);
-            }
-        });
-        PanelBase.add(BotonEmoji, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 170, 220, 50));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -613,9 +521,48 @@ public class GUI extends javax.swing.JFrame {
         });
         jPanel2.add(BotonCargarIma1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 200, 50));
 
+        BotonBorrarImage1.setBackground(new java.awt.Color(248, 155, 155));
+        BotonBorrarImage1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        BotonBorrarImage1.setForeground(new java.awt.Color(255, 255, 255));
+        BotonBorrarImage1.setText("Borrar Imagen");
+        BotonBorrarImage1.setBorderPainted(false);
+        BotonBorrarImage1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BotonBorrarImage1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonBorrarImage1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(BotonBorrarImage1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 170, 220, 50));
+
+        BotonImportarImage1.setBackground(new java.awt.Color(134, 188, 118));
+        BotonImportarImage1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        BotonImportarImage1.setForeground(new java.awt.Color(255, 255, 255));
+        BotonImportarImage1.setText("Insertar Imagen");
+        BotonImportarImage1.setBorderPainted(false);
+        BotonImportarImage1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BotonImportarImage1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonImportarImage1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(BotonImportarImage1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 170, 220, 50));
+
+        BotonEmoji.setBackground(new java.awt.Color(181, 181, 87));
+        BotonEmoji.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        BotonEmoji.setForeground(new java.awt.Color(255, 255, 255));
+        BotonEmoji.setText("Emojis");
+        BotonEmoji.setBorderPainted(false);
+        BotonEmoji.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BotonEmoji.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonEmojiActionPerformed(evt);
+            }
+        });
+        jPanel2.add(BotonEmoji, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 170, 190, 50));
+
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         jLabel8.setText("Menu de Emojis: Click Izquierdo ");
-        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 220, 160, -1));
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(702, 220, 160, -1));
 
         PanelBase.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 0, 940, 240));
 
@@ -772,32 +719,65 @@ public class GUI extends javax.swing.JFrame {
 
         PanelBase.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 200, 940, 520));
 
+        jPanel3.setBackground(new java.awt.Color(255, 102, 102));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel7.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/IconoS.png"))); // NOI18N
+        jLabel7.setText("Fotos");
+        jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 160, 50));
+        jPanel3.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 218, 20));
+
+        BotonAlbum.setBackground(new java.awt.Color(255, 102, 102));
+        BotonAlbum.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        BotonAlbum.setForeground(new java.awt.Color(255, 255, 255));
+        BotonAlbum.setText("Album");
+        BotonAlbum.setBorder(null);
+        BotonAlbum.setBorderPainted(false);
+        BotonAlbum.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BotonAlbum.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonAlbumActionPerformed(evt);
+            }
+        });
+        jPanel3.add(BotonAlbum, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 230, 70));
+
+        BotonGaleria.setBackground(new java.awt.Color(255, 102, 102));
+        BotonGaleria.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        BotonGaleria.setForeground(new java.awt.Color(255, 255, 255));
+        BotonGaleria.setText("Datos-Galeria");
+        BotonGaleria.setBorder(null);
+        BotonGaleria.setBorderPainted(false);
+        BotonGaleria.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BotonGaleria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonGaleriaActionPerformed(evt);
+            }
+        });
+        jPanel3.add(BotonGaleria, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 230, 70));
+
+        BotonConfi.setBackground(new java.awt.Color(255, 102, 102));
+        BotonConfi.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        BotonConfi.setForeground(new java.awt.Color(255, 255, 255));
+        BotonConfi.setText("Creditos");
+        BotonConfi.setBorderPainted(false);
+        BotonConfi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BotonConfi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonConfiActionPerformed(evt);
+            }
+        });
+        jPanel3.add(BotonConfi, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 640, 230, 80));
+        jPanel3.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 170, 10));
+
+        PanelBase.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 230, 720));
+
         getContentPane().add(PanelBase, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1170, 720));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    //Acciones de los Botones de la parte izquierda, Boton Album
-    private void BotonAlbumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonAlbumActionPerformed
-
-        jTabbedPane1.setSelectedIndex(1); // Cambia al segundo panel 
-        JOptionPane.showMessageDialog(null, "No hay presupuesto  :( ", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-
-    }//GEN-LAST:event_BotonAlbumActionPerformed
-
-    //Acciones de los Botones de la parte izquierda, Boton Galeria
-    private void BotonGaleriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonGaleriaActionPerformed
-
-        jTabbedPane1.setSelectedIndex(0); // Cambia al primer panel 
-    }//GEN-LAST:event_BotonGaleriaActionPerformed
-
-    //Acciones de los Botones de la parte izquierda, Boton Confi
-    private void BotonConfiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonConfiActionPerformed
-
-        jTabbedPane1.setSelectedIndex(2); // Cambia al tercer panel
-
-
-    }//GEN-LAST:event_BotonConfiActionPerformed
 
     private void BotonLimpiarBufferActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonLimpiarBufferActionPerformed
 
@@ -828,13 +808,13 @@ public class GUI extends javax.swing.JFrame {
 
         try {
             if (TxtNombreImagen.getText().isEmpty() || TxtDescripcionImagen.getText().isEmpty() || TxtEmoji.getText().isEmpty() || rutaImagen == null) {
-                JOptionPane.showMessageDialog(null, "Ingresa el nombre y selecciona una imagen", "Aviso", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Ingresa Nombre, Imagen y el Emoji", "Aviso", JOptionPane.WARNING_MESSAGE);
             } else {
                 Insertar();
                 actualizarImagen();
             }
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Ingresa el nombre y selecciona una imagen", "Aviso", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Ingresa Nombre, Imagen y el Emoji", "Aviso", JOptionPane.WARNING_MESSAGE);
         }
 
     }//GEN-LAST:event_BotonImportarImage1ActionPerformed
@@ -908,6 +888,26 @@ public class GUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_BtnGuiaActionPerformed
 
+    //Acciones de los Botones de la parte izquierda, Boton Confi
+    private void BotonConfiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonConfiActionPerformed
+
+        jTabbedPane1.setSelectedIndex(2); // Cambia al tercer panel
+
+    }//GEN-LAST:event_BotonConfiActionPerformed
+
+    //Acciones de los Botones de la parte izquierda, Boton Galeria
+    private void BotonGaleriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonGaleriaActionPerformed
+
+        jTabbedPane1.setSelectedIndex(0); // Cambia al primer panel
+    }//GEN-LAST:event_BotonGaleriaActionPerformed
+
+    //Acciones de los Botones de la parte izquierda, Boton Album
+    private void BotonAlbumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonAlbumActionPerformed
+
+        jTabbedPane1.setSelectedIndex(1); // Cambia al segundo panel
+        JOptionPane.showMessageDialog(null, "No hay presupuesto  :( ", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_BotonAlbumActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -936,15 +936,15 @@ public class GUI extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
 
-        try {
-//            UIManager.setLookAndFeel(new FlatLightLaf());
-            FlatCyanLightIJTheme.setup();
-        } catch (Exception ex) {
-            System.err.println("Failed to initialize LaF");
-        }
-        UIManager.put("Button.arc", 999);
-        UIManager.put("Component.arc", 999);
-        UIManager.put("TextComponent.arc", 5);
+//        try {
+////            UIManager.setLookAndFeel(new FlatLightLaf());
+//            FlatCyanLightIJTheme.setup();
+//        } catch (Exception ex) {
+//            System.err.println("Failed to initialize LaF");
+//        }
+//        UIManager.put("Button.arc", 999);
+//        UIManager.put("Component.arc", 999);
+//        UIManager.put("TextComponent.arc", 5);
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -1001,9 +1001,10 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private keeptoo.KGradientPanel kGradientPanel1;
     // End of variables declaration//GEN-END:variables
 }
