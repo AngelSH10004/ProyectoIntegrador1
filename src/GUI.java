@@ -323,6 +323,53 @@ public class GUI extends javax.swing.JFrame {
         }
     }
 
+    //Metod Buscar, Actualmente no esta implementado en el front, pero solo es poner el boton y ponerle la funcion Buscar, actualizarImagen y actualizarTexto
+     public void buscar() {
+        if (listaVacia()) {
+            JOptionPane.showMessageDialog(null, "La lista está vacía");
+            return;
+        }
+
+        String artista = JOptionPane.showInputDialog("¿Cuál es el nombre del la imagen?");
+
+        if (artista == null || artista.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No ingresaste ningún nombre");
+            return;
+        }
+
+        artista = artista.trim(); // Elimina espacios al principio y al final
+        Nodo chalan = inicio;
+        int i = 1;
+        boolean encontrado = false;
+        String mensaje = "";
+
+        do {
+            // Compara el nombre de la imagen ignorando mayúsculas y espacios extras
+            if (artista.equalsIgnoreCase(chalan.getNombreImagen().trim())) {
+                mensaje += "Nombre: " + chalan.getNombreImagen()+ "\n";
+                mensaje += "Descripcion: " + chalan.getDescripcion()+ "\n";
+                mensaje += "Fecha: " + chalan.getFecha()+ "\n";
+                mensaje += "Emoji: " + chalan.getEmoji()+ "\n";
+                mensaje += "Posición: " + i + "\n";
+                mensaje += "---------------------------------\n";
+                encontrado = true;
+
+                actual = chalan;
+            }
+            chalan = chalan.getSiguiente();
+            i++;
+        } while (chalan != inicio);
+
+        
+        if (encontrado) {
+            System.out.println("Imagen encontrado");
+            JOptionPane.showMessageDialog(null, mensaje, "Imagen Encontrado", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            System.out.println("No se encontro");
+            JOptionPane.showMessageDialog(null, "El Imagen no se encuentra en la lista");
+        }
+    }
+
     // Metodo para avanzar al siguiente nodo
     public void Avanzar() {
         if (listaVacia()) {
