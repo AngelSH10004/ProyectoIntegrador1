@@ -57,10 +57,11 @@ public class GUI extends javax.swing.JFrame {
     Nodo actual = null, inicio = null, fin = null;
     String rutaImagen;
     int smileyCodePoint;
-
+    boolean listaOrdenada = false;
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////    
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //Metodos
+
     void cargarImagen() {
         try {
             JFileChooser explorador = new JFileChooser();
@@ -263,6 +264,59 @@ public class GUI extends javax.swing.JFrame {
         TxtNombreImagen.setText("");
         TxtDescripcionImagen.setText("");
         TxtEmoji.setText("");
+
+        //decir que no esta ordenada
+        listaOrdenada = false;
+    }
+
+    //Metod Buscar
+    public void buscarBinario() {
+        if (listaVacia()) {
+            JOptionPane.showMessageDialog(null, "La lista está vacía.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Casos donde SÍ se permite buscar:
+        // 1. Lista ordenada (para 2+ elementos) O 
+        // 2. Solo hay 1 elemento (siempre está ordenado)
+        boolean puedeBuscar = listaOrdenada || inicio == fin;
+        
+        // Verifica si la lista NO está ordenada
+        if (!puedeBuscar) {
+            JOptionPane.showMessageDialog(null, "La lista no está ordenada. Dale al Boton de Ordenar (De lo contrario te va rechazar como ella)",
+                    "Advertencia",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        String nombreImagen = JOptionPane.showInputDialog("Ingrese el nombre de la imagen a buscar:");
+
+        if (nombreImagen == null || nombreImagen.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar un nombre válido.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        nombreImagen = nombreImagen.trim();
+
+        // Realiza la búsqueda binaria (lista ya ordenada)
+        Nodo encontrado = busquedaBinariaRecursiva(nombreImagen);
+
+        if (encontrado != null) {
+            actual = encontrado;
+            actualizarTexto();
+            actualizarImagen(false);
+
+            String mensaje = "¡Imagen encontrada!\n"
+                    + "Nombre: " + encontrado.getNombreImagen() + "\n"
+                    + "Descripción: " + encontrado.getDescripcion() + "\n"
+                    + "Fecha: " + encontrado.getFecha() + "\n"
+                    + "Emoji: " + encontrado.getEmoji();
+
+            JOptionPane.showMessageDialog(null, mensaje, "Resultado", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "La imagen '" + nombreImagen + "' no se encontró.", "No encontrado", JOptionPane.WARNING_MESSAGE);
+        }
+
     }
 
     void Borrar() {
@@ -280,10 +334,12 @@ public class GUI extends javax.swing.JFrame {
 
             if (inicio == fin) {  // Solo hay un nodo
                 inicio = fin = actual = null;
+                listaOrdenada = true;  // <-- Lista vacía se considera ordenada
             } else {
                 fin = fin.getAnterior();  // Retrocedemos el puntero 'fin' al nodo anterior
                 fin.setSiguiente(inicio); // El nuevo 'fin' apunta al 'inicio' (circularidad)
                 inicio.setAnterior(fin);  // El 'inicio' apunta al nuevo 'fin' (circularidad)
+
             }
 
             actual = inicio;  // Ajustamos el puntero actual al nuevo inicio
@@ -299,6 +355,7 @@ public class GUI extends javax.swing.JFrame {
         } catch (HeadlessException e) {
             JOptionPane.showMessageDialog(null, "La lista esta vacia.", "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
+
     }
 
     void EliminarTodo() {
@@ -384,9 +441,249 @@ public class GUI extends javax.swing.JFrame {
         System.out.println("Nombre del Emoji Avanzando: " + actual.getEmoji());
         return inicio;
     }
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////    
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////    
 
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * Ordenamiento Marge Sort
+     */
+    // Método para ordenar la lista usando MergeSort
+    void ordenarPorNombre() {
+        if (listaVacia() || inicio == fin) {
+            listaOrdenada = true;  // Lista vacía o con 1 elemento se considera ordenada
+            return;
+        }
+
+        // Desconectamos la lista circular para ordenarla
+        inicio.setAnterior(null);
+        fin.setSiguiente(null);
+
+        // Ordenamos la lista
+        inicio = mergeSort(inicio);
+
+        // Reconectamos la lista circular
+        Nodo temp = inicio;
+        while (temp.getSiguiente() != null) {
+            temp = temp.getSiguiente();
+        }
+        fin = temp;
+        inicio.setAnterior(fin);
+        fin.setSiguiente(inicio);
+
+        actual = inicio; // Actualizamos el nodo actual
+
+        //decir que si esta ordenada
+        listaOrdenada = true;
+
+    }
+
+// Método MergeSort para lista enlazada
+    private Nodo mergeSort(Nodo cabeza) {
+        if (cabeza == null || cabeza.getSiguiente() == null) {
+            return cabeza;
+        }
+
+        // Dividimos la lista en dos
+        Nodo mitad = obtenerMitad(cabeza);
+        Nodo siguienteMitad = mitad.getSiguiente();
+        mitad.setSiguiente(null);
+
+        // Ordenamos recursivamente cada mitad
+        Nodo izquierda = mergeSort(cabeza);
+        Nodo derecha = mergeSort(siguienteMitad);
+
+        // Combinamos las mitades ordenadas
+        return merge(izquierda, derecha);
+    }
+
+// Método para obtener el nodo medio de la lista
+    private Nodo obtenerMitad(Nodo cabeza) {
+        if (cabeza == null) {
+            return cabeza;
+        }
+
+        Nodo lento = cabeza;
+        Nodo rapido = cabeza.getSiguiente();
+
+        while (rapido != null && rapido.getSiguiente() != null) {
+            lento = lento.getSiguiente();
+            rapido = rapido.getSiguiente().getSiguiente();
+        }
+
+        return lento;
+    }
+
+// Método para combinar dos listas ordenadas
+    private Nodo merge(Nodo a, Nodo b) {
+        Nodo resultado = null;
+
+        if (a == null) {
+            return b;
+        }
+        if (b == null) {
+            return a;
+        }
+
+        // Comparamos los nombres de las imágenes
+        if (a.getNombreImagen().compareToIgnoreCase(b.getNombreImagen()) <= 0) {
+            resultado = a;
+            resultado.setSiguiente(merge(a.getSiguiente(), b));
+            resultado.getSiguiente().setAnterior(resultado);
+        } else {
+            resultado = b;
+            resultado.setSiguiente(merge(a, b.getSiguiente()));
+            resultado.getSiguiente().setAnterior(resultado);
+        }
+
+        return resultado;
+    }
+
+    // Modificación de actualizarImagen para mostrar ordenado cuando sea necesario
+    void actualizarImagen(boolean ordenado) {
+        if (listaVacia()) {
+            Imagen1.setIcon(null);
+            Imagen2.setIcon(null);
+            Imagen3.setIcon(null);
+            Imagen4.setIcon(null);
+            Imagen5.setIcon(null);
+            Imagen6.setIcon(null);
+            Imagen7.setIcon(null);
+            Imagen8.setIcon(null);
+        } else {
+            // Ordenar si es necesario
+            if (ordenado) {
+                ordenarPorNombre();
+            }
+
+//            // Mostrar imagen principal
+//            rutaImagen = actual.getRutaImagen();
+//            if (rutaImagen != null && !rutaImagen.isEmpty()) {
+//                ImageIcon icono = new ImageIcon(rutaImagen);
+//                setImagenEnLabel(icono, ImagenInicio1);
+//            }
+            // Array de labels
+            JLabel[] labels = {
+                Imagen1, Imagen2, Imagen3, Imagen4,
+                Imagen5, Imagen6, Imagen7, Imagen8
+            };
+
+            // Empezar desde el nodo actual (o el inicio si actual es null)
+            Nodo nodoActual = (actual != null) ? actual : inicio;
+            int contador = 0;
+
+            // Recorrer la lista y asignar imágenes
+            while (nodoActual != null && contador < labels.length) {
+                rutaImagen = nodoActual.getRutaImagen();
+
+                if (rutaImagen != null && !rutaImagen.isEmpty()) {
+                    ImageIcon icono = new ImageIcon(rutaImagen);
+                    Image imgEscalada = icono.getImage().getScaledInstance(
+                            labels[contador].getWidth(),
+                            labels[contador].getHeight(),
+                            Image.SCALE_SMOOTH
+                    );
+                    labels[contador].setIcon(new ImageIcon(imgEscalada));
+                }
+
+                nodoActual = nodoActual.getSiguiente();
+                contador++;
+
+                // Para evitar bucle infinito en lista circular
+                if (nodoActual == inicio) {
+                    break;
+                }
+            }
+        }
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * Busqueda Binaria
+     */
+    /**
+     * Realiza una búsqueda binaria recursiva en la lista ORDENADA.
+     *
+     * @param nombreBuscado Nombre de la imagen a buscar.
+     * @return Nodo encontrado o null si no existe.
+     */
+    public Nodo busquedaBinariaRecursiva(String nombreBuscado) {
+        if (listaVacia()) {
+            JOptionPane.showMessageDialog(null, "La lista está vacía.", "Error", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+
+        // Convertimos temporalmente la lista circular en lineal para facilitar la búsqueda binaria
+        inicio.setAnterior(null);
+        fin.setSiguiente(null);
+
+        Nodo resultado = busquedaBinariaRecursivaHelper(inicio, fin, nombreBuscado);
+
+        // Restauramos la circularidad
+        inicio.setAnterior(fin);
+        fin.setSiguiente(inicio);
+
+        return resultado;
+    }
+
+    /**
+     * Helper recursivo para la búsqueda binaria.
+     *
+     * @param inicio Nodo inicial del subrango.
+     * @param fin Nodo final del subrango.
+     * @param nombreBuscado Nombre a buscar.
+     * @return Nodo encontrado o null.
+     */
+    private Nodo busquedaBinariaRecursivaHelper(Nodo inicio, Nodo fin, String nombreBuscado) {
+        // Caso base: el rango no es válido
+        if (inicio == null || fin == null || inicio == fin.getSiguiente()) {
+            return null;
+        }
+
+        // Obtenemos el nodo medio del rango actual
+        Nodo medio = obtenerMitad(inicio, fin);
+
+        // Comparamos el nombre del nodo medio con el buscado (ignorando mayúsculas)
+        int comparacion = medio.getNombreImagen().compareToIgnoreCase(nombreBuscado);
+
+        if (comparacion == 0) {
+            return medio; // ¡Encontrado!
+        } else if (comparacion > 0) {
+            // Buscar en la mitad izquierda (antes del medio)
+            return busquedaBinariaRecursivaHelper(inicio, medio.getAnterior(), nombreBuscado);
+        } else {
+            // Buscar en la mitad derecha (después del medio)
+            return busquedaBinariaRecursivaHelper(medio.getSiguiente(), fin, nombreBuscado);
+        }
+    }
+
+    /**
+     * Obtiene el nodo medio entre dos nodos (inicio y fin).
+     *
+     * @param inicio Nodo inicial.
+     * @param fin Nodo final.
+     * @return Nodo medio.
+     */
+    private Nodo obtenerMitad(Nodo inicio, Nodo fin) {
+        if (inicio == fin) {
+            return inicio; // Solo hay un nodo en el rango
+        }
+
+        Nodo lento = inicio;
+        Nodo rapido = inicio.getSiguiente();
+
+        // Avanzamos 'rapido' dos pasos y 'lento' un paso hasta llegar al final
+        while (rapido != fin && rapido != fin.getSiguiente()) {
+            lento = lento.getSiguiente();
+            rapido = rapido.getSiguiente();
+            if (rapido != fin && rapido != fin.getSiguiente()) {
+                rapido = rapido.getSiguiente();
+            }
+        }
+
+        return lento;
+    }
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////    
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -413,6 +710,8 @@ public class GUI extends javax.swing.JFrame {
         BotonImportarImage1 = new javax.swing.JButton();
         BotonEmoji = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
+        BotonOrdenar = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         GaleriaInsertar = new javax.swing.JPanel();
         TxtEmoji = new javax.swing.JTextField();
@@ -446,7 +745,6 @@ public class GUI extends javax.swing.JFrame {
         BotonAlbum = new javax.swing.JButton();
         BotonGaleria = new javax.swing.JButton();
         BotonConfi = new javax.swing.JButton();
-        jSeparator3 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("GaleriaRobocop");
@@ -520,7 +818,7 @@ public class GUI extends javax.swing.JFrame {
                 BotonCargarIma1ActionPerformed(evt);
             }
         });
-        jPanel2.add(BotonCargarIma1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 200, 50));
+        jPanel2.add(BotonCargarIma1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 200, 50));
 
         BotonBorrarImage1.setBackground(new java.awt.Color(248, 155, 155));
         BotonBorrarImage1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -533,7 +831,7 @@ public class GUI extends javax.swing.JFrame {
                 BotonBorrarImage1ActionPerformed(evt);
             }
         });
-        jPanel2.add(BotonBorrarImage1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 170, 220, 50));
+        jPanel2.add(BotonBorrarImage1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 220, 50));
 
         BotonImportarImage1.setBackground(new java.awt.Color(134, 188, 118));
         BotonImportarImage1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -546,7 +844,7 @@ public class GUI extends javax.swing.JFrame {
                 BotonImportarImage1ActionPerformed(evt);
             }
         });
-        jPanel2.add(BotonImportarImage1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 170, 220, 50));
+        jPanel2.add(BotonImportarImage1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 170, 220, 50));
 
         BotonEmoji.setBackground(new java.awt.Color(181, 181, 87));
         BotonEmoji.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -559,11 +857,35 @@ public class GUI extends javax.swing.JFrame {
                 BotonEmojiActionPerformed(evt);
             }
         });
-        jPanel2.add(BotonEmoji, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 170, 190, 50));
+        jPanel2.add(BotonEmoji, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 170, 190, 50));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         jLabel8.setText("Menu de Emojis: Click Izquierdo ");
-        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(702, 220, 160, -1));
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 220, 160, -1));
+
+        jButton3.setBackground(new java.awt.Color(139, 208, 220));
+        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(255, 255, 255));
+        jButton3.setText("Buscar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 200, 50));
+
+        BotonOrdenar.setBackground(new java.awt.Color(201, 175, 231));
+        BotonOrdenar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        BotonOrdenar.setForeground(new java.awt.Color(255, 255, 255));
+        BotonOrdenar.setText("Ordenar");
+        BotonOrdenar.setBorderPainted(false);
+        BotonOrdenar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BotonOrdenar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonOrdenarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(BotonOrdenar, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 170, 180, 50));
 
         PanelBase.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 0, 940, 240));
 
@@ -743,7 +1065,7 @@ public class GUI extends javax.swing.JFrame {
                 BotonAlbumActionPerformed(evt);
             }
         });
-        jPanel3.add(BotonAlbum, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 230, 70));
+        jPanel3.add(BotonAlbum, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 230, 70));
 
         BotonGaleria.setBackground(new java.awt.Color(255, 102, 102));
         BotonGaleria.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -771,7 +1093,6 @@ public class GUI extends javax.swing.JFrame {
             }
         });
         jPanel3.add(BotonConfi, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 640, 230, 80));
-        jPanel3.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 170, 10));
 
         PanelBase.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 230, 720));
 
@@ -878,7 +1199,7 @@ public class GUI extends javax.swing.JFrame {
 
     private void BtnGuiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuiaActionPerformed
 
-        String link = "https://github.com/AngelSH10004/ProyectoIntegrador";
+        String link = "https://github.com/AngelSH10004/ProyectoIntegrador1";
 
         try {
             // Usar Desktop.getDesktop() para abrir el enlace en el navegador por defecto
@@ -906,8 +1227,24 @@ public class GUI extends javax.swing.JFrame {
     private void BotonAlbumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonAlbumActionPerformed
 
         jTabbedPane1.setSelectedIndex(1); // Cambia al segundo panel
-        JOptionPane.showMessageDialog(null, "No hay presupuesto  :( ", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+
     }//GEN-LAST:event_BotonAlbumActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+
+        buscarBinario();
+        actualizarImagen();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void BotonOrdenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonOrdenarActionPerformed
+
+        if (listaVacia()) {
+            JOptionPane.showMessageDialog(null, "Che amigo, la lista esta vacia, que vas a ordenar >:(", "Aviso", JOptionPane.WARNING_MESSAGE);
+        } else {
+            actualizarImagen(true);
+            actualizarTexto();
+        }
+    }//GEN-LAST:event_BotonOrdenarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -972,6 +1309,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton BotonImportarImage1;
     private javax.swing.JButton BotonIrInicio;
     private javax.swing.JButton BotonLimpiarBuffer;
+    private javax.swing.JButton BotonOrdenar;
     private javax.swing.JButton BotonRetroceder;
     private javax.swing.JButton BtnGuia;
     private javax.swing.JPanel Configuracion;
@@ -997,6 +1335,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JTextField TxtMostraFecha;
     private javax.swing.JTextField TxtNombreImagen;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -1009,7 +1348,6 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JTabbedPane jTabbedPane1;
     // End of variables declaration//GEN-END:variables
 }
